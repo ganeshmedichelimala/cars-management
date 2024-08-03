@@ -61,26 +61,37 @@ router.post('/login/user', async (req, res) => {
   console.log('Received credentials:', { username, password });
 
   try {
+    // Find the user with the specified username and role 'user'
     const user = await User.findOne({ username, role: 'user' });
     console.log('Found user:', user);
 
-    if (!user) return res.status(400).json({ msg: 'Invalid credentials' });
+    if (!user) {
+      return res.status(400).json({ msg: 'Invalid credentials' });
+    }
 
     // Compare provided password with stored hash
     const isMatch = await bcrypt.compare(password, user.password);
     console.log('Password match:', isMatch);
 
-    if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials' });
+    if (!isMatch) {
+      return res.status(400).json({ msg: 'Invalid credentials' });
+    }
 
+    // Generate a token
     const payload = { user: { id: user.id, role: user.role } };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    res.json({ token });
+    // Send a successful response with the token
+    res.json({
+      msg: 'Login successful',
+      token
+    });
   } catch (err) {
     console.error('Server error:', err);
     res.status(500).json({ msg: 'Server error' });
   }
 });
+
 
 
 
