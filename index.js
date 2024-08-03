@@ -15,7 +15,7 @@ app.use(cors());
 app.use('/api/auth', authRoutes);
 app.use('/api/cars', carRoutes);
 app.get('/',(req, res)=>{
-  res.send("hello world")
+  res.send("Assignment for Quadiro Technologies")
 })
 
 const PORT = process.env.PORT || 5000;
