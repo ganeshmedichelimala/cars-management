@@ -15,8 +15,8 @@ router.post('/', authMiddleware, async (req, res) => {
   }
 });
 
-// Get all cars
-router.get('/', async (req, res) => {
+// Get all cars - Protected route
+router.get('/', authMiddleware, async (req, res) => {
   try {
     const cars = await Car.find();
     res.json(cars);
@@ -54,8 +54,8 @@ router.delete('/:id', authMiddleware, async (req, res) => {
   }
 });
 
-
-router.get('/:id', async (req, res) => {
+// Get a car by ID - Protected route
+router.get('/:id', authMiddleware, async (req, res) => {
   console.log('Received ID:', req.params.id);
   try {
     const car = await Car.findById(req.params.id);
@@ -67,8 +67,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-//FILTER BY YEAR
-router.get('/filter', async (req, res) => {
+// Filter by year - Protected route
+router.get('/filter', authMiddleware, async (req, res) => {
   const { year } = req.query;
   try {
     const cars = await Car.find({ year });
@@ -78,9 +78,8 @@ router.get('/filter', async (req, res) => {
   }
 });
 
-
-//SORT BY PRICE
-router.get('/sort', async (req, res) => {
+// Sort by price - Protected route
+router.get('/sort', authMiddleware, async (req, res) => {
   const { order = 'asc' } = req.query;
   try {
     const cars = await Car.find().sort({ price: order === 'asc' ? 1 : -1 });
@@ -89,7 +88,5 @@ router.get('/sort', async (req, res) => {
     res.status(500).json({ msg: 'Server error' });
   }
 });
-
-
 
 module.exports = router;
