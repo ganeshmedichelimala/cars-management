@@ -2,18 +2,19 @@
   "name": "your-project-name",
   "version": "1.0.0",
   "description": "Your project description",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "mongoose": "^6.0.0",
-    "jsonwebtoken": "^8.5.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.0",
+    "vercel": "^35.2.3"
   },
   "engines": {
     "node": "20.x"
